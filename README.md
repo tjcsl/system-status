@@ -1,0 +1,4 @@
+system-status
+=============
+
+Status dashboard
