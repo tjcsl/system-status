@@ -1,0 +1,25 @@
+{
+    "iodine": {
+        "type": "port",
+        "port": 443,
+        "target": "iodine.tjhsst.edu",
+        "display": false
+    },
+    "iodine-ldap": {
+        "type": "port",
+        "port": 636,
+        "target": "iodine-ldap.csl.tjhsst.edu",
+        "display": false
+    },
+    "intranet": {
+        "type": "psuedo-and",
+        "deps": ["iodine", "iodine-ldap"],
+        "display": true
+    },
+    "web": {
+        "type": "port",
+        "port": 80
+        "target": "www.tjhsst.edu/",
+        "display": true
+    }
+}
