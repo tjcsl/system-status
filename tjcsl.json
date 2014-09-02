@@ -13,7 +13,7 @@
     },
     "intranet": {
         "type": "psuedo",
-        "logic": "all",
+        "logic": "and",
         "deps": ["iodine", "iodine-ldap"],
         "display": true
     },
