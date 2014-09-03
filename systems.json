@@ -1,32 +1,30 @@
 {
-    "iodine": {
+    "local-irc": {
         "type": "port",
-        "port": 443,
-        "target": "iodine.tjhsst.edu",
-        "display": false
+        "port": 6667,
+        "target": "localhost",
+        "display": true,
+        "display-name": "Local IRC server"
     },
-    "iodine-ldap": {
+    "local-ssh": {
+        "type": "port",
+        "port": 22,
+        "target": "localhost",
+        "display": false,
+        "display-name": "Local SSH server"
+    },
+    "local-ldap": {
         "type": "port",
         "port": 636,
-        "target": "iodine-ldap.csl.tjhsst.edu",
-        "display": false
+        "target": "localhost",
+        "display": true,
+        "display-name": "Local LDAP server"
     },
-    "intranet": {
+    "local-services": {
         "type": "psuedo",
         "logic": "all",
-        "deps": ["iodine", "iodine-ldap"],
-        "display": true
-    },
-    "web": {
-        "type": "port",
-        "port": 80,
-        "target": "www.tjhsst.edu",
-        "display": true
-    },
-    "mysql": {
-        "type": "port",
-        "port": 3306,
-        "target": "mysql1.csl.tjhsst.edu",
-        "display": false
+        "deps": ["local-irc", "local-ssh", "local-ldap"],
+        "display": true,
+        "display-name": "Local services"
     }
 }

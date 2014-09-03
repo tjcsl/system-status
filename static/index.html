@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>System status</title>
+    <script>
+        var config = {};
+        function getConfig() {
+            $.get("/config.json", function(data) {
+                config = data;
+            });
+        }
+        function updateStatus() {
+            $.get("/status.json", function(data) {
+                for(system in data) {
+                    var sysConfig = config[system];
+                    var sysData = data[system];
+                    var displayName = sysConfig["display-name"];
+                    var isUp = sysData["up"];
+                    var jqObj = $("<div class='system-box'></div>");
+                    jqObj.append("<span class='" + (isUp ? "system-up-header" : "system-down-header" ) + "'>" + displayName + "</span><br />");
+                    if(sysConfig.type == "psuedo") {
+                        jqObj.append("Psuedo-service depending on " + sysConfig.logic + " of " + sysConfig.deps.map(function(x){return config[x]["display-name"];}).join(", ") + "</br>");
+                    }
+                    else if(sysConfig.type == "port") {
+                        jqObj.append("Service running on " + sysConfig.target + ":" + sysConfig.port + "</br>");
+                    }
+                    if(!isUp && sysConfig.type != "psuedo") {
+                        jqObj.append("<span>" + sysData.err + "</span>");
+                    }
+                    $("body").append(jqObj);
+                }
+            });
+        }
+    </script>
+    <style>
+        .system-up-header {
+            color: green;
+            font-size: 150%;
+        }
+        .system-down-header {
+            color: red;
+            font-size: 150%;
+        }
+        .system-box {
+            padding: 10px;
+            margin-bottom: 5px;
+            border-style: solid;
+            border-color: black;
+            border-width: 1px;
+        }
+    </style>
+    <script src="/static/jquery.min.js"></script>
+</head>
+<body onload="getConfig(); updateStatus();">
+</body>
+</html>

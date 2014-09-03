@@ -3,30 +3,39 @@
         "type": "port",
         "port": 443,
         "target": "iodine.tjhsst.edu",
-        "display": false
+        "display": false,
     },
     "iodine-ldap": {
         "type": "port",
         "port": 636,
         "target": "iodine-ldap.csl.tjhsst.edu",
-        "display": false
+        "display": false,
     },
     "intranet": {
         "type": "psuedo",
-        "logic": "and",
+        "logic": "all",
         "deps": ["iodine", "iodine-ldap"],
-        "display": true
+        "display": true,
+        "display-name": "Intranet"
     },
     "web": {
         "type": "port",
         "port": 80,
         "target": "www.tjhsst.edu",
-        "display": true
+        "display": true,
+        "display-name": "TJHSST website"
     },
     "mysql": {
         "type": "port",
         "port": 3306,
         "target": "mysql1.csl.tjhsst.edu",
-        "display": false
+        "display": false,
+    },
+    "student-activity-sites": {
+        "type": "psuedo",
+        "logic": "all",
+        "deps": ["web", "mysql"],
+        "display": true,
+        "display-name": "Student activity sites"
     }
 }
